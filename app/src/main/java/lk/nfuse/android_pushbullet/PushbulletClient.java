@@ -56,4 +56,29 @@ public class PushbulletClient {
             e.printStackTrace();
         }
     }
+    
+    
+    public void sendNote(String title, String body) {
+        defaultHttpClient = new DefaultHttpClient();
+        defaultHttpClient.setCredentialsProvider(credentialsProvider);
+
+        HttpPost post = new HttpPost(URL);
+
+        try {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+            nameValuePairs.add(new BasicNameValuePair("type", "note"));
+            nameValuePairs.add(new BasicNameValuePair("title", title));
+            nameValuePairs.add(new BasicNameValuePair("body", body));
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            defaultHttpClient.execute(post);
+
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
